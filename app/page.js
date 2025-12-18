@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 
 function CodeBlock({ title, code, language = "bash" }) {
   const [copied, setCopied] = useState(false);
@@ -179,42 +179,334 @@ function Playground() {
   );
 }
 
-export default function Home() {
-  const installCmd = `# 1) Install Tailwind and PostCSS plugin
-npm install tailwindcss @tailwindcss/postcss postcss autoprefixer --save-dev
+function TypographyPlayground() {
+  const [size, setSize] = useState("base");
+  const [leading, setLeading] = useState("normal");
+  const [tracking, setTracking] = useState("normal");
 
-# 2) Add the plugin to PostCSS (postcss.config.mjs)
-export default { plugins: { "@tailwindcss/postcss": {} } }
+  const textCls = useMemo(() => {
+    const sizeMap = {
+      sm: "text-sm",
+      base: "text-base",
+      lg: "text-lg",
+      xl: "text-xl",
+    };
+    const leadingMap = {
+      tight: "leading-tight",
+      snug: "leading-snug",
+      normal: "leading-normal",
+      relaxed: "leading-relaxed",
+    };
+    const trackingMap = {
+      tight: "tracking-tight",
+      normal: "tracking-normal",
+      wide: "tracking-wide",
+    };
+    return [
+      sizeMap[size],
+      leadingMap[leading],
+      trackingMap[tracking],
+      "text-zinc-800 dark:text-zinc-200",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }, [size, leading, tracking]);
 
-# 3) Import Tailwind in your global CSS (app/globals.css)
-@import "tailwindcss";
-
-# 4) Use the classes in your components
-export default function Button(){
-  return <button className=\"px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500\">Click</button>
-}`;
-
-  const nextSpecific = `// Next.js (App Router) quick wiring
-// app/layout.js
-import "./globals.css";
-export default function RootLayout({ children }) {
-  return <html lang=\"en\"><body>{children}</body></html>;
+  return (
+    <div className="not-prose rounded-xl border border-black/5 p-4 dark:border-white/10">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="space-y-4">
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Size</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["sm", "base", "lg", "xl"].map((v) => (
+                <button key={v} onClick={() => setSize(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${size === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`} aria-label={`Set size ${v}`}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Line height</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["tight", "snug", "normal", "relaxed"].map((v) => (
+                <button key={v} onClick={() => setLeading(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${leading === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`} aria-label={`Set leading ${v}`}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Tracking</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["tight", "normal", "wide"].map((v) => (
+                <button key={v} onClick={() => setTracking(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${tracking === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`} aria-label={`Set tracking ${v}`}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-2xl bg-white/70 p-6 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-white/5 dark:ring-white/10">
+            <h4 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Typography Preview</h4>
+            <p className={`mt-3 ${textCls}`}>
+              Tailwind’s typography utilities let you tune size, line-height, and letter spacing precisely.
+            </p>
+            <p className={`mt-2 ${textCls}`}>
+              Combine with color and weight for polished, readable content across devices.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-// app/page.js
-export default function Page(){
-  return (
-    <main className=\"p-10 max-w-3xl mx-auto\">Hello Tailwind 👋</main>
-  );
-}`;
+function ButtonsPlayground() {
+  const [variant, setVariant] = useState("solid");
+  const [accent, setAccent] = useState("indigo");
+  const [rounded, setRounded] = useState("md");
+  const [size, setSize] = useState("md");
+  const [shadow, setShadow] = useState(true);
 
+  const accents = ["indigo", "emerald", "rose", "amber", "sky"];
+  const btnSolid = {
+    indigo: "bg-indigo-600 hover:bg-indigo-500 text-white dark:bg-indigo-500 dark:hover:bg-indigo-400",
+    emerald: "bg-emerald-600 hover:bg-emerald-500 text-white dark:bg-emerald-500 dark:hover:bg-emerald-400",
+    rose: "bg-rose-600 hover:bg-rose-500 text-white dark:bg-rose-500 dark:hover:bg-rose-400",
+    amber: "bg-amber-600 hover:bg-amber-500 text-white dark:bg-amber-500 dark:hover:bg-amber-400",
+    sky: "bg-sky-600 hover:bg-sky-500 text-white dark:bg-sky-500 dark:hover:bg-sky-400",
+  };
+  const btnOutline = {
+    indigo: "border border-indigo-600 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-400 dark:text-indigo-300 dark:hover:bg-indigo-950/40",
+    emerald: "border border-emerald-600 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-400 dark:text-emerald-300 dark:hover:bg-emerald-950/40",
+    rose: "border border-rose-600 text-rose-700 hover:bg-rose-50 dark:border-rose-400 dark:text-rose-300 dark:hover:bg-rose-950/40",
+    amber: "border border-amber-600 text-amber-700 hover:bg-amber-50 dark:border-amber-400 dark:text-amber-300 dark:hover:bg-amber-950/40",
+    sky: "border border-sky-600 text-sky-700 hover:bg-sky-50 dark:border-sky-400 dark:text-sky-300 dark:hover:bg-sky-950/40",
+  };
+  const btnGhost = {
+    indigo: "text-indigo-700 hover:bg-indigo-50 dark:text-indigo-300 dark:hover:bg-indigo-950/40",
+    emerald: "text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/40",
+    rose: "text-rose-700 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-950/40",
+    amber: "text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-950/40",
+    sky: "text-sky-700 hover:bg-sky-50 dark:text-sky-300 dark:hover:bg-sky-950/40",
+  };
+  const sizeMap = {
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2 text-sm",
+    lg: "px-5 py-2.5 text-base",
+  };
+  const roundedMap = {
+    none: "rounded-none",
+    md: "rounded-md",
+    full: "rounded-full",
+  };
+
+  const base = "inline-flex items-center gap-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+  const palette = variant === "solid" ? btnSolid[accent] : variant === "outline" ? btnOutline[accent] : btnGhost[accent];
+  const cls = [base, palette, sizeMap[size], roundedMap[rounded], shadow ? "shadow-sm" : ""].filter(Boolean).join(" ");
+
+  return (
+    <div className="not-prose rounded-xl border border-black/5 p-4 dark:border-white/10">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="space-y-4">
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Variant</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["solid", "outline", "ghost"].map((v) => (
+                <button key={v} onClick={() => setVariant(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${variant === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`} aria-label={`Set variant ${v}`}>{v}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Accent</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {accents.map((c) => (
+                <button key={c} onClick={() => setAccent(c)} className={`h-8 w-8 rounded-full ring-2 ring-inset transition hover:scale-105 ${accent === c ? `outline-2 -outline-offset-2 outline-${c}-600` : ""} bg-linear-to-br from-${c}-400 to-${c}-600 ring-${c}-500/30`} aria-label={`Set accent ${c}`} />
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <span className="text-sm text-zinc-700 dark:text-zinc-300">Rounded</span>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {["none", "md", "full"].map((v) => (
+                  <button key={v} onClick={() => setRounded(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${rounded === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <span className="text-sm text-zinc-700 dark:text-zinc-300">Size</span>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {["sm", "md", "lg"].map((v) => (
+                  <button key={v} onClick={() => setSize(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${size === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <Toggle label="Shadow" checked={shadow} onChange={setShadow} />
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-2xl bg-white/70 p-6 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-white/5 dark:ring-white/10">
+            <h4 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Buttons Preview</h4>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button className={cls} aria-label="Primary action">Primary</button>
+              <button className={cls} aria-label="Secondary action">Secondary</button>
+              <button className={cls} aria-label="Another action">Another</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GridPlayground() {
+  const [cols, setCols] = useState(3);
+  const [gap, setGap] = useState(4);
+  const [align, setAlign] = useState("center");
+  const gridCols = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" };
+  const gapMap = { 1: "gap-1", 2: "gap-2", 3: "gap-3", 4: "gap-4", 6: "gap-6", 8: "gap-8" };
+  const alignMap = { start: "items-start", center: "items-center", end: "items-end" };
+
+  const cls = ["grid", gridCols[cols], gapMap[gap], alignMap[align]].join(" ");
+
+  return (
+    <div className="not-prose rounded-xl border border-black/5 p-4 dark:border-white/10">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="space-y-4">
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Columns</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {[1, 2, 3, 4].map((v) => (
+                <button key={v} onClick={() => setCols(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${cols === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Gap</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {[1, 2, 3, 4, 6, 8].map((v) => (
+                <button key={v} onClick={() => setGap(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${gap === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Align</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["start", "center", "end"].map((v) => (
+                <button key={v} onClick={() => setAlign(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${align === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-2xl bg-white/70 p-6 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-white/5 dark:ring-white/10">
+            <h4 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Grid Preview</h4>
+            <div className={`mt-4 ${cls}`}>
+              {Array.from({ length: cols * 2 }).map((_, i) => (
+                <div key={i} className="grid place-items-center rounded-lg border border-black/10 bg-white/70 p-4 text-xs text-zinc-600 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-zinc-300">Box {i + 1}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FormsPlayground() {
+  const [rounded, setRounded] = useState(true);
+  const [accent, setAccent] = useState("indigo");
+  const [size, setSize] = useState("md");
+  const accents = ["indigo", "emerald", "rose", "amber", "sky"];
+  const ringFocus = {
+    indigo: "focus:ring-indigo-500",
+    emerald: "focus:ring-emerald-500",
+    rose: "focus:ring-rose-500",
+    amber: "focus:ring-amber-500",
+    sky: "focus:ring-sky-500",
+  };
+  const sizeMap = {
+    sm: "px-3 py-2 text-sm",
+    md: "px-4 py-2.5 text-sm",
+    lg: "px-5 py-3 text-base",
+  };
+  const cls = [
+    "w-full border border-black/10 bg-white/70 text-zinc-800 shadow-sm outline-none ring-1 ring-inset ring-black/10 transition placeholder:text-zinc-400 dark:border-white/10 dark:bg-white/10 dark:text-zinc-200 dark:ring-white/10",
+    ringFocus[accent],
+    rounded ? "rounded-md" : "rounded-none",
+    sizeMap[size],
+  ].join(" ");
+
+  return (
+    <div className="not-prose rounded-xl border border-black/5 p-4 dark:border-white/10">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="space-y-4">
+          <Toggle label="Rounded" checked={rounded} onChange={setRounded} />
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Accent</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {accents.map((c) => (
+                <button key={c} onClick={() => setAccent(c)} className={`h-8 w-8 rounded-full ring-2 ring-inset transition hover:scale-105 ${accent === c ? `outline-2 -outline-offset-2 outline-${c}-600` : ""} bg-linear-to-br from-${c}-400 to-${c}-600 ring-${c}-500/30`} aria-label={`Set accent ${c}`} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-sm text-zinc-700 dark:text-zinc-300">Size</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {["sm", "md", "lg"].map((v) => (
+                <button key={v} onClick={() => setSize(v)} className={`rounded-md border px-3 py-1 text-sm transition hover:bg-white/60 dark:hover:bg-white/10 ${size === v ? "bg-white/80 dark:bg-black/30" : "bg-transparent"}`}>{v}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-2xl bg-white/70 p-6 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-white/5 dark:ring-white/10">
+            <h4 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Form Preview</h4>
+            <div className="mt-4 grid gap-3">
+              <input className={cls} placeholder="Your name" aria-label="Your name" />
+              <input className={cls} placeholder="Email address" aria-label="Email address" />
+              <textarea className={cls} rows={3} placeholder="Message" aria-label="Message" />
+              <div className="flex gap-2">
+                <button className="rounded-md bg-zinc-900 px-4 py-2 text-sm text-white shadow-sm transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">Submit</button>
+                <button className="rounded-md border border-black/10 px-4 py-2 text-sm text-zinc-700 transition hover:bg-white/60 dark:border-white/10 dark:text-zinc-300 dark:hover:bg-white/10">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  const [isDark, setIsDark] = useState(false);
+  const [fading, setFading] = useState(false);
+
+  const applyTheme = useCallback((enableDark) => {
+    setFading(true);
+    const root = document.documentElement;
+    root.classList.toggle("dark", enableDark);
+    setIsDark(enableDark);
+    setTimeout(() => setFading(false), 260);
+  }, []);
+
+  useEffect(() => {
+    const hasClass = document.documentElement.classList.contains("dark");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const enableDark = hasClass || prefersDark;
+    setIsDark(enableDark);
+    document.documentElement.classList.toggle("dark", enableDark);
+  }, []);
   const utilityExample = `<div class=\"flex items-center gap-3 rounded-xl border p-4 shadow-sm\">
   <span class=\"inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-white\">✓</span>
   <p class=\"text-zinc-700\">Utilities combine to build polished UI quickly.</p>
 </div>`;
 
   return (
-    <div className="relative min-h-screen bg-linear-to-b from-zinc-50 to-white font-sans dark:from-black dark:to-zinc-950">
+    <div className={`relative min-h-screen bg-linear-to-b from-zinc-50 to-white font-sans dark:from-black dark:to-zinc-950 ${fading ? "theme-crossfade" : ""}`}>
       <header className="sticky top-0 z-20 border-b border-black/5 bg-white/70 backdrop-blur supports-backdrop-filter:bg-white/60 dark:border-white/10 dark:bg-black/40">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
@@ -222,15 +514,26 @@ export default function Page(){
               <span className="text-sm font-bold">TW</span>
             </div>
             <span className="text-sm font-semibold tracking-wide text-zinc-900 dark:text-zinc-100">
-              How to Use Tailwind CSS
+              Tailwind CSS Playground
             </span>
           </div>
-          <nav className="hidden gap-6 text-sm font-medium text-zinc-700 dark:text-zinc-300 md:flex">
-            <a className="hover:text-zinc-900 dark:hover:text-white" href="#install">Install</a>
-            <a className="hover:text-zinc-900 dark:hover:text-white" href="#configure">Configure</a>
-            <a className="hover:text-zinc-900 dark:hover:text-white" href="#use">Use</a>
-            <a className="hover:text-zinc-900 dark:hover:text-white" href="#playground">Playground</a>
-          </nav>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => applyTheme(!isDark)}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/80 text-zinc-700 transition hover:bg-white dark:border-white/20 dark:bg-black/40 dark:text-zinc-200 dark:hover:bg-black/60"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDark ? (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden>
+                  <path d="M12 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm0 16a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm10-6a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM5 12a1 1 0 01-1 1H2a1 1 0 110-2h2a1 1 0 011 1zm12.95 6.364a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 011.414-1.414l1.414 1.414zM8.879 7.05a1 1 0 01-1.415-1.415L6.05 4.222a1 1 0 111.415-1.414l1.414 1.414A1 1 0 018.879 7.05zm8.071-2.828a1 1 0 011.414-1.414l1.414 1.414a1 1 0 11-1.414 1.414l-1.414-1.414zM7.05 15.121a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 111.414-1.414l1.414 1.414z" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden>
+                  <path d="M21.707 15.293a1 1 0 00-1.414-1.414A7 7 0 018.121 1.707a1 1 0 10-1.414-1.414A9 9 0 1021.707 15.293z" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -238,16 +541,13 @@ export default function Page(){
         <section className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-10 shadow-sm dark:border-white/10 dark:bg-black">
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(1200px_400px_at_90%_-10%,rgba(99,102,241,0.15),transparent_60%)]" />
           <h1 className="max-w-3xl text-balance bg-linear-to-br from-zinc-900 to-zinc-700 bg-clip-text text-4xl font-extrabold leading-tight text-transparent md:text-5xl dark:from-white dark:to-zinc-300">
-            How to Use Tailwind CSS
+            Tailwind CSS Utility Playground
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-zinc-600 md:text-xl dark:text-zinc-400">
-            Learn the modern, utility-first workflow to build beautiful, responsive UIs without leaving your HTML.
+            Experiment live with utilities and see instant UI changes. Switch light/dark mode and tweak shapes, shadows, and accents.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#install" className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-500">
-              Start Installing
-            </a>
             <a href="#playground" className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 dark:border-indigo-900/50 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-950/60">
               Open Playground
             </a>
@@ -255,39 +555,38 @@ export default function Page(){
         </section>
 
         <article className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
-          <h2 id="install">1) Install</h2>
+          <h2 id="playground">Playground</h2>
           <p>
-            Tailwind works with any build tool. In Next.js, install Tailwind plus the official PostCSS plugin. This project already ships with the correct setup, but here’s the quick recipe.
-          </p>
-          <CodeBlock title="Install + wire up" code={installCmd} />
-
-          <h2 id="configure">2) Configure</h2>
-          <p>
-            Tailwind v4 is mostly zero-config. Ensure your global CSS imports Tailwind and PostCSS runs the plugin. Optionally add themes, fonts, or CSS variables like in this template.
-          </p>
-          <CodeBlock title="Next.js files" code={nextSpecific} language="js" />
-
-          <h2 id="use">3) Use utilities</h2>
-          <p>
-            Compose tiny utility classes to design components quickly. Here’s a small example using layout, color, and radius utilities.
+            Use the controls to change utilities and themes. This focuses purely on how Tailwind classes affect the UI — no install steps.
           </p>
           <CodeBlock title="Utility example" code={utilityExample} language="html" />
-
-          <ul>
-            <li><strong>Layout:</strong> <code>flex</code>, <code>grid</code>, <code>gap-*</code>, <code>container</code>, <code>p-*</code>, <code>m-*</code></li>
-            <li><strong>Styling:</strong> <code>bg-*</code>, <code>text-*</code>, <code>rounded-*</code>, <code>shadow-*</code>, <code>ring-*</code></li>
-            <li><strong>State:</strong> <code>hover:</code>, <code>focus:</code>, <code>active:</code>, <code>disabled:</code></li>
-            <li><strong>Responsive:</strong> <code>sm:</code>, <code>md:</code>, <code>lg:</code>, <code>xl:</code>, <code>2xl:</code></li>
-            <li><strong>Dark mode:</strong> <code>dark:</code> variants, or rely on system preference.</li>
-          </ul>
-
-          <h2 id="playground">4) Playground</h2>
-          <p>
-            Try the live playground below. Toggle utilities and colors to see how class names map directly to design decisions.
-          </p>
         </article>
 
         <Playground />
+
+          <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
+            <h2>Typography</h2>
+            <p>Tune type scale, line-height, and letter-spacing.</p>
+          </section>
+          <TypographyPlayground />
+
+          <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
+            <h2>Buttons</h2>
+            <p>Swap variants, accents, sizes, and radii.</p>
+          </section>
+          <ButtonsPlayground />
+
+          <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
+            <h2>Grid & Spacing</h2>
+            <p>Change columns, gaps, and alignment.</p>
+          </section>
+          <GridPlayground />
+
+          <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
+            <h2>Forms</h2>
+            <p>Focus rings, sizes, rounding, and shadows.</p>
+          </section>
+          <FormsPlayground />
 
         <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
           <h2>Tips</h2>
@@ -298,79 +597,7 @@ export default function Page(){
           </ul>
         </section>
 
-        <section className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
-          <h2>Activity Guide: Build & Deploy</h2>
-          <p>
-            Below is the complete step-by-step guide you provided. It’s embedded here for easy reference and matches your classroom activity. Follow each step to create, run, and deploy your Next.js app.
-          </p>
-
-          <details className="rounded-xl border border-black/5 bg-white p-4 shadow-sm open:p-5 dark:border-white/10 dark:bg-black">
-            <summary className="cursor-pointer list-none">
-              <span className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-3 py-1 text-xs font-medium text-white">Guide</span>
-              <span className="ml-2 text-sm text-zinc-700 dark:text-zinc-300">Click to expand the complete activity instructions</span>
-            </summary>
-
-            <h3 className="mt-6">1. Create a GitHub Repository</h3>
-            <ul>
-              <li>Open <a href="https://desktop.github.com/" target="_blank" rel="noreferrer">GitHub Desktop</a></li>
-              <li>Sign in to your account</li>
-              <li>Create a new repository named: <strong>lastname-webapp-demo</strong></li>
-              <li>Publish the repository to GitHub</li>
-            </ul>
-
-            <h3>2. Open the Project in VS Code</h3>
-            <ul>
-              <li>In GitHub Desktop → click <strong>Open in Visual Studio Code</strong></li>
-              <li>In VS Code → right-click the project panel → <strong>Open in Integrated Terminal</strong></li>
-            </ul>
-
-            <h3>3. Verify Installed Tools</h3>
-            <p>Run these commands and ensure you see version numbers:</p>
-            {/** use existing reusable CodeBlock **/}
-            <CodeBlock title="Check versions" code={`node -v\nnpm -v\ngit -v`} />
-
-            <h3>4. Download the Activity Materials</h3>
-            <p>Get the starter files from:</p>
-            <p>
-              <a href="https://github.com/clydeatmcm/IT103/tree/main/M1/FA4/webapp1" target="_blank" rel="noreferrer">
-                https://github.com/clydeatmcm/IT103/tree/main/M1/FA4/webapp1
-              </a>
-            </p>
-
-            <h3>5. Create a New Next.js Project</h3>
-            <p>Run this command inside your project folder:</p>
-            <CodeBlock title="Create Next.js app" code={`npx create-next-app@latest .`} />
-            <p>Follow the configuration settings provided in the activity materials.</p>
-
-            <h3>6. Add Your Boilerplate Page</h3>
-            <ul>
-              <li>Copy the provided <code>page.js</code> code from the activity material into <strong>app/page.js</strong></li>
-              <li>Overwrite the existing file</li>
-            </ul>
-
-            <h3>7. Run the Web App Locally</h3>
-            <p>Start your development server:</p>
-            <CodeBlock title="Run dev server" code={`npm run dev`} />
-            <p>Your project should open at: <strong>http://localhost:3000</strong></p>
-
-            <h3>8. Push Your Updates to GitHub</h3>
-            <ul>
-              <li>In GitHub Desktop: <strong>Commit</strong> your changes</li>
-              <li>Click <strong>Push</strong> to your remote repository</li>
-            </ul>
-
-            <h3>9. Deploy to Vercel</h3>
-            <ul>
-              <li>Go to <a href="https://vercel.com" target="_blank" rel="noreferrer">vercel.com</a></li>
-              <li>Sign in using GitHub</li>
-              <li>Create a New Project</li>
-              <li>Select your repository</li>
-              <li>Deploy!</li>
-            </ul>
-
-            <p className="mt-6">🎉 You’re done! Your first web app is deployed using Node.js + Next.js + Vercel.</p>
-          </details>
-        </section>
+        {/** Activity guide removed to keep the page focused on the tutorial/playground. **/}
       </main>
 
       <footer className="border-t border-black/5 py-10 text-center text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400">
