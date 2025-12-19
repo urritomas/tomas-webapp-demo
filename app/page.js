@@ -517,23 +517,6 @@ export default function Home() {
               Tailwind CSS Playground
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => applyTheme(!isDark)}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/80 text-zinc-700 transition hover:bg-white dark:border-white/20 dark:bg-black/40 dark:text-zinc-200 dark:hover:bg-black/60"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDark ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden>
-                  <path d="M12 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zm0 16a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm10-6a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM5 12a1 1 0 01-1 1H2a1 1 0 110-2h2a1 1 0 011 1zm12.95 6.364a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 011.414-1.414l1.414 1.414zM8.879 7.05a1 1 0 01-1.415-1.415L6.05 4.222a1 1 0 111.415-1.414l1.414 1.414A1 1 0 018.879 7.05zm8.071-2.828a1 1 0 011.414-1.414l1.414 1.414a1 1 0 11-1.414 1.414l-1.414-1.414zM7.05 15.121a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 111.414-1.414l1.414 1.414z" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden>
-                  <path d="M21.707 15.293a1 1 0 00-1.414-1.414A7 7 0 018.121 1.707a1 1 0 10-1.414-1.414A9 9 0 1021.707 15.293z" />
-                </svg>
-              )}
-            </button>
-          </div>
         </div>
       </header>
 
