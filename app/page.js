@@ -554,12 +554,135 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mt-12">
+          <div className="mb-8">
+            <h2 id="playground" className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Getting Started with Tailwind</h2>
+            <p className="mt-3 text-lg text-zinc-600 dark:text-zinc-400">
+              Tailwind CSS is a utility-first framework that lets you build modern UIs by combining small, focused classes. No context switching—compose styles directly in your markup.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="overflow-hidden rounded-2xl border border-black/5 bg-gradient-to-br from-emerald-50 to-emerald-50/30 p-6 shadow-sm dark:border-white/10 dark:from-emerald-950/20 dark:to-emerald-950/10">
+              <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white">
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 10 10.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+                Utility Classes
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-white">Single-Purpose Classes</h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Build UIs using focused, reusable utilities like <code className="rounded bg-black/10 px-2 py-1 text-xs text-emerald-700 dark:bg-white/10 dark:text-emerald-300">flex</code>, <code className="rounded bg-black/10 px-2 py-1 text-xs text-emerald-700 dark:bg-white/10 dark:text-emerald-300">gap-3</code>, <code className="rounded bg-black/10 px-2 py-1 text-xs text-emerald-700 dark:bg-white/10 dark:text-emerald-300">rounded-lg</code>.</p>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-black/5 bg-gradient-to-br from-blue-50 to-blue-50/30 p-6 shadow-sm dark:border-white/10 dark:from-blue-950/20 dark:to-blue-950/10">
+              <div className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white">
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                  <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                </svg>
+                Responsive Design
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-white">Mobile-First Prefixes</h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Apply utilities at breakpoints: <code className="rounded bg-black/10 px-2 py-1 text-xs text-blue-700 dark:bg-white/10 dark:text-blue-300">md:flex</code>, <code className="rounded bg-black/10 px-2 py-1 text-xs text-blue-700 dark:bg-white/10 dark:text-blue-300">lg:gap-6</code>. Build layouts that adapt effortlessly.</p>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-black/5 bg-gradient-to-br from-violet-50 to-violet-50/30 p-6 shadow-sm dark:border-white/10 dark:from-violet-950/20 dark:to-violet-950/10">
+              <div className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white">
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+                Dark Mode
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-white">Theme Variants</h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Use the <code className="rounded bg-black/10 px-2 py-1 text-xs text-violet-700 dark:bg-white/10 dark:text-violet-300">dark:</code> prefix for automatic dark theme support without extra logic.</p>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl border border-black/5 bg-gradient-to-br from-rose-50 to-rose-50/30 p-6 shadow-sm dark:border-white/10 dark:from-rose-950/20 dark:to-rose-950/10">
+              <div className="inline-flex items-center gap-2 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white">
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                  <path fillRule="evenodd" d="M12 1H6a1 1 0 00-1 1v12a1 1 0 001 1h6a1 1 0 001-1V2a1 1 0 00-1-1zm-5.5 7a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
+                </svg>
+                Composition
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-white">No Context Switching</h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Build complex components by combining utilities. Stay in your HTML—markup and styles live together.</p>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-black/5 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">Common Utility Categories</h3>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="flex gap-3">
+                <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-300">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 dark:text-white">Layout</p>
+                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400"><code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">flex</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">grid</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">gap-4</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">p-6</code></p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-300">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 dark:text-white">Colors</p>
+                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400"><code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">bg-blue-500</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">text-red-700</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">border-gray-200</code></p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 dark:text-white">Typography</p>
+                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400"><code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">text-lg</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">font-bold</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">leading-relaxed</code></p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-300">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-zinc-900 dark:text-white">Effects & Spacing</p>
+                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400"><code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">rounded-lg</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">shadow-md</code>, <code className="bg-black/5 px-1.5 py-0.5 dark:bg-white/10">ring-1</code></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-white">See it in Action</h3>
+            <CodeBlock title="Before: Traditional CSS" code={`<div class="card">
+  <h2>Hello World</h2>
+  <p>A simple card</p>
+</div>
+
+<style>
+.card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+</style>`} language="html" />
+
+            <CodeBlock title="After: Tailwind Utilities" code={utilityExample} language="html" />
+          </div>
+        </section>
+
         <article className="prose prose-zinc mt-12 max-w-none dark:prose-invert">
-          <h2 id="playground">Playground</h2>
+          <h2>Interactive Playgrounds</h2>
           <p>
-            Use the controls to change utilities and themes. This focuses purely on how Tailwind classes affect the UI — no install steps.
+            Experiment below with live controls. Toggle utilities and see how they affect the UI instantly.
           </p>
-          <CodeBlock title="Utility example" code={utilityExample} language="html" />
         </article>
 
         <Playground />
@@ -601,7 +724,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-black/5 py-10 text-center text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400">
-        Built with Next.js + Tailwind CSS. Have fun building!
+        Urri Tomas 2025
       </footer>
     </div>
   );
